@@ -342,6 +342,20 @@ GET /alpha/deep?url=https://example.com/article
 
 The x402 protocol replaces API keys with micropayments. Here is the flow:
 
+```mermaid
+sequenceDiagram
+    participant Agent
+    participant API as x402 API
+    participant Chain as Blockchain
+
+    Agent->>API: GET /alpha/token?symbol=SOL
+    API-->>Agent: 402 Payment Required (payment instructions)
+    Agent->>Chain: Transfer USDC to payTo address
+    Chain-->>Agent: Transaction confirmation
+    Agent->>API: GET /alpha/token?symbol=SOL<br/>X-PAYMENT: <proof>
+    API-->>Agent: 200 OK (data response)
+```
+
 ### 1. Request Without Payment
 
 ```
