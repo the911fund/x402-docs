@@ -1,0 +1,82 @@
+{
+  "x402Version": "1.0",
+  "name": "911Fund Alpha API",
+  "description": "AI-powered trading intelligence for autonomous agents. Multi-chain USDC payments.",
+  "documentation": "https://github.com/the911fund/x402-docs",
+  "networks": ["ethereum", "base", "solana"],
+  "paymentAsset": "USDC",
+  "resources": [
+    {
+      "path": "/alpha/token",
+      "method": "GET",
+      "description": "Token analysis with price, volume, holders, and optional Twitter sentiment",
+      "priceUSD": 0.02,
+      "addons": [
+        {
+          "name": "twitter",
+          "priceUSD": 0.05,
+          "description": "Include Twitter sentiment data"
+        }
+      ],
+      "params": ["address", "token", "symbol", "chain", "twitter"]
+    },
+    {
+      "path": "/alpha/trending",
+      "method": "GET",
+      "description": "Trending tokens and narratives across crypto",
+      "priceUSD": 0.02,
+      "addons": [
+        {
+          "name": "twitter",
+          "priceUSD": 0.05,
+          "description": "Include Twitter trend data"
+        }
+      ],
+      "params": ["category", "limit", "twitter"]
+    },
+    {
+      "path": "/alpha/sentiment",
+      "method": "GET",
+      "description": "Market sentiment analysis with Twitter data included",
+      "priceUSD": 0.08,
+      "params": ["query", "topic", "token"]
+    },
+    {
+      "path": "/alpha/search",
+      "method": "GET",
+      "description": "Search trading alpha across multiple sources (Exa + AI)",
+      "priceUSD": 0.03,
+      "params": ["query", "q"]
+    },
+    {
+      "path": "/alpha/deep",
+      "method": "GET",
+      "description": "Deep research with multi-source analysis (Exa + Firecrawl + Claude)",
+      "priceUSD": 0.15,
+      "params": ["query", "topic", "token", "url"]
+    }
+  ],
+  "chains": [
+    {
+      "id": "ethereum",
+      "name": "Ethereum",
+      "type": "evm",
+      "usdc": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "receiver": "0xd86F1F35d6B15fEBef2f4a4390b584D8a7deC0B6"
+    },
+    {
+      "id": "base",
+      "name": "Base",
+      "type": "evm",
+      "usdc": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "receiver": "0xd86F1F35d6B15fEBef2f4a4390b584D8a7deC0B6"
+    },
+    {
+      "id": "solana",
+      "name": "Solana",
+      "type": "solana",
+      "usdc": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "receiver": "CtbPTTFMRfULUMz7DjPDRCKXVSBEcAEXeTUq4n7fSFuf"
+    }
+  ]
+}

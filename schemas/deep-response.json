@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Alpha Deep Response",
+  "description": "Response from GET /alpha/deep",
+  "type": "object",
+  "required": ["query", "sources", "data", "payment", "timestamp"],
+  "properties": {
+    "query": { "type": "string" },
+    "sources": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "exa": {
+          "type": "object",
+          "properties": {
+            "resultsFound": { "type": "integer" },
+            "results": { "type": "array", "items": { "type": "object" } }
+          }
+        },
+        "firecrawl": {
+          "type": "object",
+          "properties": {
+            "pagesScraped": { "type": "integer" },
+            "content": { "type": "array", "items": { "type": "object" } }
+          }
+        },
+        "scrapedPage": {
+          "type": "object",
+          "description": "Present when url parameter is provided"
+        },
+        "twitter": {
+          "type": "object",
+          "properties": {
+            "tweetsFound": { "type": "integer" },
+            "totalEngagement": { "type": "integer" },
+            "topTweets": { "type": "array", "items": { "type": "object" } }
+          }
+        }
+      }
+    },
+    "payment": {
+      "type": "object",
+      "required": ["chain", "txHash", "amount", "verified"],
+      "properties": {
+        "chain": { "type": "string" },
+        "txHash": { "type": "string" },
+        "amount": { "type": "number" },
+        "verified": { "type": "boolean" }
+      }
+    },
+    "timestamp": { "type": "string", "format": "date-time" }
+  }
+}

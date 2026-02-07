@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Alpha Search Response",
+  "description": "Response from GET /alpha/search",
+  "type": "object",
+  "required": ["query", "data", "payment", "timestamp"],
+  "properties": {
+    "query": { "type": "string" },
+    "data": {
+      "type": "object",
+      "required": ["exa", "summary"],
+      "properties": {
+        "exa": {
+          "type": "object",
+          "properties": {
+            "resultsFound": { "type": "integer" },
+            "results": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "url": { "type": "string" },
+                  "title": { "type": "string" },
+                  "snippet": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "summary": { "type": "string" }
+      }
+    },
+    "payment": {
+      "type": "object",
+      "required": ["chain", "txHash", "amount", "verified"],
+      "properties": {
+        "chain": { "type": "string" },
+        "txHash": { "type": "string" },
+        "amount": { "type": "number" },
+        "verified": { "type": "boolean" }
+      }
+    },
+    "sourcesUsed": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" }
+  }
+}

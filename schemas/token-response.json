@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Alpha Token Response",
+  "description": "Response from GET /alpha/token",
+  "type": "object",
+  "required": ["query", "data", "payment", "timestamp"],
+  "properties": {
+    "query": {
+      "type": "object",
+      "properties": {
+        "address": { "type": "string" },
+        "symbol": { "type": "string" },
+        "chain": { "type": "string", "enum": ["base", "ethereum", "solana"] },
+        "includeTwitter": { "type": "boolean" }
+      }
+    },
+    "data": {
+      "type": "object",
+      "required": ["grokAnalysis"],
+      "properties": {
+        "dexscreener": {
+          "type": "object",
+          "properties": {
+            "price": { "type": "number" },
+            "volume24h": { "type": "number" },
+            "priceChange24h": { "type": "number" }
+          }
+        },
+        "coingecko": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "price": { "type": "number" },
+            "volume24h": { "type": "number" },
+            "marketCap": { "type": "number" },
+            "priceChange24h": { "type": "number" }
+          }
+        },
+        "twitter": {
+          "type": "object",
+          "description": "Only present when twitter=true",
+          "properties": {
+            "recentTweets": { "type": "integer" },
+            "totalEngagement": { "type": "integer" },
+            "samples": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "text": { "type": "string" },
+                  "likes": { "type": "integer" },
+                  "retweets": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "grokAnalysis": { "type": "string" }
+      }
+    },
+    "payment": {
+      "$ref": "#/definitions/payment"
+    },
+    "timestamp": { "type": "string", "format": "date-time" }
+  },
+  "definitions": {
+    "payment": {
+      "type": "object",
+      "required": ["chain", "txHash", "amount", "verified"],
+      "properties": {
+        "chain": { "type": "string" },
+        "txHash": { "type": "string" },
+        "amount": { "type": "number" },
+        "verified": { "type": "boolean" }
+      }
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "name": "Alpha Research API",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "start",
+      "name": "Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://x402.911fund.io/health",
+        "options": {}
+      },
+      "id": "health-check",
+      "name": "Health Check",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [460, 200]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://x402.911fund.io/.well-known/x402.json",
+        "options": {}
+      },
+      "id": "discovery",
+      "name": "Get Endpoints",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [460, 400]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://x402.911fund.io/alpha/token",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "symbol",
+              "value": "={{ $json.symbol || 'SOL' }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-PAYMENT",
+              "value": "={{ $json.payment_proof }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "token-analysis",
+      "name": "Token Analysis ($0.02)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [700, 300],
+      "notes": "Requires X-PAYMENT header with valid payment proof. Without it, returns 402."
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          { "node": "Health Check", "type": "main", "index": 0 },
+          { "node": "Get Endpoints", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Health Check": {
+      "main": [
+        [
+          { "node": "Token Analysis ($0.02)", "type": "main", "index": 0 }
+        ]
+      ]
+    }
+  }
+}

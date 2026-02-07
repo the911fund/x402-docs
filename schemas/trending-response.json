@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Alpha Trending Response",
+  "description": "Response from GET /alpha/trending",
+  "type": "object",
+  "required": ["query", "data", "payment", "timestamp"],
+  "properties": {
+    "query": {
+      "type": "object",
+      "properties": {
+        "includeTwitter": { "type": "boolean" }
+      }
+    },
+    "data": {
+      "type": "object",
+      "required": ["coingecko", "narrativeSummary"],
+      "properties": {
+        "coingecko": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "symbol": { "type": "string" },
+              "price": { "type": "number" },
+              "volumeChange": { "type": "number" }
+            }
+          }
+        },
+        "twitter": {
+          "type": "object",
+          "description": "Only present when twitter=true",
+          "properties": {
+            "mentions": { "type": "integer" },
+            "samples": { "type": "array", "items": { "type": "object" } }
+          }
+        },
+        "narrativeSummary": { "type": "string" }
+      }
+    },
+    "payment": {
+      "type": "object",
+      "required": ["chain", "txHash", "amount", "verified"],
+      "properties": {
+        "chain": { "type": "string" },
+        "txHash": { "type": "string" },
+        "amount": { "type": "number" },
+        "verified": { "type": "boolean" }
+      }
+    },
+    "timestamp": { "type": "string", "format": "date-time" }
+  }
+}
