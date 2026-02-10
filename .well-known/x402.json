@@ -1,9 +1,9 @@
 {
   "x402Version": "1.0",
   "name": "911Fund Alpha API",
-  "description": "AI-powered trading intelligence for autonomous agents. USDC payments on Base and Solana.",
+  "description": "AI-powered trading intelligence for autonomous agents. USDC payments on Base, Ethereum, and Solana.",
   "documentation": "https://github.com/the911fund/x402-docs",
-  "networks": ["base", "solana"],
+  "networks": ["base", "ethereum", "solana"],
   "paymentAsset": "USDC",
   "resources": [
     {
@@ -78,6 +78,14 @@
       "type": "evm",
       "signingMethod": "EIP-712 signTypedData",
       "usdc": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "receiver": "0xd86F1F35d6B15fEBef2f4a4390b584D8a7deC0B6"
+    },
+    {
+      "id": "ethereum",
+      "name": "Ethereum",
+      "type": "evm",
+      "signingMethod": "EIP-712 signTypedData",
+      "usdc": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
       "receiver": "0xd86F1F35d6B15fEBef2f4a4390b584D8a7deC0B6"
     },
     {
