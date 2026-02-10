@@ -4,6 +4,8 @@
 
 Alpha Research API delivers AI-powered market intelligence through five endpoints — token analysis, trending detection, X/Twitter sentiment, neural search, and deep research — all accessible via USDC micropayments on Base, Ethereum, and Solana. No API keys. No subscriptions. Just pay and receive.
 
+Available via **REST** (`GET /alpha/*`) and **MCP** (`POST /mcp`). Same tools, same pricing.
+
 ## Endpoints
 
 | Endpoint | Price | What You Get |
@@ -16,7 +18,183 @@ Alpha Research API delivers AI-powered market intelligence through five endpoint
 
 **Optional add-on:** Append `?twitter=true` to `/alpha/token` or `/alpha/trending` for X/Twitter data (+$0.05 USDC).
 
-## Quick Start
+---
+
+## MCP Server
+
+The MCP server exposes all Alpha Research tools via [Model Context Protocol](https://modelcontextprotocol.io) over Streamable HTTP. AI agents can discover and call tools using standard MCP JSON-RPC, with x402 USDC payments on Base.
+
+**Endpoint:** `POST https://x402.911fund.io/mcp`
+
+### MCP Tools
+
+| Tool | Price | Description |
+|---|---|---|
+| `alpha_token` | $0.02 | Token analysis with price, volume, AI signals. `twitter: true` adds X data (+$0.05). |
+| `alpha_trending` | $0.02 | Trending tokens and narratives. `twitter: true` adds X data (+$0.05). |
+| `alpha_sentiment` | $0.08 | X/Twitter sentiment with bull/bear scoring. |
+| `alpha_search` | $0.03 | Neural search via Exa + AI summary. |
+| `alpha_deep` | $0.15 | Deep research: Exa + Firecrawl + Claude + X. Up to 60s. |
+| `alpha_stats` | Free | Gateway stats (uptime, memory, rate limits). |
+
+### MCP Quick Start
+
+**1. Initialize the connection (free):**
+
+```bash
+curl -X POST https://x402.911fund.io/mcp \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -d '{"jsonrpc":"2.0","method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"test","version":"1.0.0"}},"id":1}'
+```
+
+**2. List available tools (free):**
+
+```bash
+curl -X POST https://x402.911fund.io/mcp \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -d '{"jsonrpc":"2.0","method":"tools/list","id":2}'
+```
+
+Returns all 6 tools with descriptions and input schemas (Zod-validated).
+
+**3. Call a free tool:**
+
+```bash
+curl -X POST https://x402.911fund.io/mcp \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -d '{"jsonrpc":"2.0","method":"tools/call","params":{"name":"alpha_stats","arguments":{}},"id":3}'
+```
+
+**4. Call a paid tool (requires X-PAYMENT header):**
+
+Without payment, you get HTTP 402 with payment requirements:
+
+```bash
+curl -X POST https://x402.911fund.io/mcp \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -d '{"jsonrpc":"2.0","method":"tools/call","params":{"name":"alpha_token","arguments":{"symbol":"SOL"}},"id":4}'
+
+# Response: HTTP 402
+# Body includes: x402Version, accepts (payment requirements), error message
+```
+
+With payment:
+
+```bash
+curl -X POST https://x402.911fund.io/mcp \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -H "X-PAYMENT: <signed_eip712_payment>" \
+  -d '{"jsonrpc":"2.0","method":"tools/call","params":{"name":"alpha_token","arguments":{"symbol":"SOL"}},"id":4}'
+```
+
+### MCP with TypeScript
+
+```typescript
+import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
+
+const transport = new StreamableHTTPClientTransport(
+  new URL("https://x402.911fund.io/mcp")
+);
+
+const client = new Client({ name: "my-agent", version: "1.0.0" });
+await client.connect(transport);
+
+// Discover tools (free)
+const { tools } = await client.listTools();
+console.log(tools.map(t => `${t.name}: ${t.description}`));
+
+// Call free tool
+const stats = await client.callTool({ name: "alpha_stats", arguments: {} });
+console.log(stats);
+```
+
+For paid tools, the `X-PAYMENT` header must contain a signed EIP-712 `TransferWithAuthorization` payload (USDC on Base). Use `@x402/fetch` or `@x402/axios` to handle payment signing automatically.
+
+### MCP with @x402/axios (automatic payment)
+
+```typescript
+import { withX402 } from "@x402/axios";
+import axios from "axios";
+import { createWalletClient, http } from "viem";
+import { base } from "viem/chains";
+import { privateKeyToAccount } from "viem/accounts";
+
+const wallet = createWalletClient({
+  account: privateKeyToAccount(process.env.PRIVATE_KEY as `0x${string}`),
+  chain: base,
+  transport: http(),
+});
+
+const client = withX402(axios.create(), wallet);
+
+// Paid tool call with automatic x402 payment
+const { data } = await client.post("https://x402.911fund.io/mcp", {
+  jsonrpc: "2.0",
+  method: "tools/call",
+  params: { name: "alpha_token", arguments: { symbol: "SOL" } },
+  id: 1,
+}, {
+  headers: {
+    "Accept": "application/json, text/event-stream",
+  }
+});
+```
+
+### MCP Payment Flow
+
+```
+Agent                     MCP Server              Facilitator
+  |                           |                        |
+  |-- tools/call (no pay) --> |                        |
+  |<-- 402 + requirements --- |                        |
+  |                           |                        |
+  |  [sign EIP-712 USDC]     |                        |
+  |                           |                        |
+  |-- tools/call + X-PAY --> |-- verify payment ----> |
+  |                          |<-- valid ------------- |
+  |                          |                        |
+  |                          |-- call internal API    |
+  |<-- 200 + tool result --- |                        |
+  |                          |-- settle payment ----> |
+  |                          |<-- settled ----------- |
+```
+
+### Agent Configuration
+
+Add to your MCP client config (e.g. `claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "x402-alpha": {
+      "url": "https://x402.911fund.io/mcp",
+      "transport": "streamable-http"
+    }
+  }
+}
+```
+
+Note: Paid tools require an x402-compatible wallet. `alpha_stats` and tool discovery (`initialize`, `tools/list`) work without payment.
+
+### MCP Technical Details
+
+- **Transport:** Streamable HTTP (POST, not SSE/WebSocket)
+- **Protocol:** JSON-RPC 2.0 over HTTP
+- **Required headers:** `Content-Type: application/json`, `Accept: application/json, text/event-stream`
+- **Payment header:** `X-PAYMENT` (EIP-712 signed TransferWithAuthorization)
+- **Payment chain:** Base (USDC)
+- **Stateless:** No sessions. Each request is independent.
+- **Response format:** SSE (`event: message\ndata: {json}`)
+
+---
+
+## REST Quick Start
 
 ### Using curl (manual x402 flow)
 
@@ -342,20 +520,6 @@ GET /alpha/deep?url=https://example.com/article
 
 The x402 protocol replaces API keys with micropayments. Here is the flow:
 
-```mermaid
-sequenceDiagram
-    participant Agent
-    participant API as x402 API
-    participant Chain as Blockchain
-
-    Agent->>API: GET /alpha/token?symbol=SOL
-    API-->>Agent: 402 Payment Required (payment instructions)
-    Agent->>Chain: Transfer USDC to payTo address
-    Chain-->>Agent: Transaction confirmation
-    Agent->>API: GET /alpha/token?symbol=SOL<br/>X-PAYMENT: <proof>
-    API-->>Agent: 200 OK (data response)
-```
-
 ### 1. Request Without Payment
 
 ```
@@ -459,8 +623,10 @@ GET https://x402.911fund.io/stats
 ## Links
 
 - **API:** https://x402.911fund.io
+- **Docs:** https://github.com/the911fund/x402-docs
+- **Gateway Source:** https://github.com/the911fund/x402-gateway
 - **x402 Protocol:** https://x402.org
-- **x402 Docs:** https://docs.cdp.coinbase.com/x402
+- **x402 Coinbase Docs:** https://docs.cdp.coinbase.com/x402
 - **@x402/fetch SDK:** https://github.com/coinbase/x402
 
 ## Built by
@@ -470,7 +636,3 @@ GET https://x402.911fund.io/stats
 ## License
 
 MIT
-
-## Changelog
-
-*No changes yet.*
