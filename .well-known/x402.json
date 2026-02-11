@@ -1,7 +1,7 @@
 {
   "x402Version": "1.0",
-  "name": "911Fund Alpha API",
-  "description": "AI-powered trading intelligence for autonomous agents. USDC payments on Base, Ethereum, and Solana.",
+  "name": "Crypto Intelligence API",
+  "description": "AI-powered crypto intelligence for autonomous agents. USDC payments on Base, Ethereum, and Solana.",
   "documentation": "https://github.com/the911fund/x402-docs",
   "networks": ["base", "ethereum", "solana"],
   "paymentAsset": "USDC",
@@ -9,8 +9,8 @@
     {
       "path": "/alpha/token",
       "method": "GET",
-      "description": "Token analysis with price, volume, holders, and optional Twitter sentiment",
-      "priceUSD": 0.02,
+      "description": "Token analysis with price, volume, market cap, and optional Twitter sentiment",
+      "priceUSD": 0.05,
       "addons": [
         {
           "name": "twitter",
@@ -24,7 +24,7 @@
       "path": "/alpha/trending",
       "method": "GET",
       "description": "Trending tokens and narratives across crypto",
-      "priceUSD": 0.02,
+      "priceUSD": 0.05,
       "addons": [
         {
           "name": "twitter",
@@ -44,8 +44,8 @@
     {
       "path": "/alpha/search",
       "method": "GET",
-      "description": "Search trading alpha across multiple sources (Exa + AI)",
-      "priceUSD": 0.03,
+      "description": "Neural search across crypto intelligence sources (Exa + AI)",
+      "priceUSD": 0.05,
       "params": ["query", "q"]
     },
     {
@@ -63,10 +63,10 @@
     "tools": 6,
     "chains": ["base", "solana"],
     "pricing": {
-      "alpha_token": 0.02,
-      "alpha_trending": 0.02,
+      "alpha_token": 0.05,
+      "alpha_trending": 0.05,
       "alpha_sentiment": 0.08,
-      "alpha_search": 0.03,
+      "alpha_search": 0.05,
       "alpha_deep": 0.15,
       "alpha_stats": 0
     }

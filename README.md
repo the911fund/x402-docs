@@ -1,8 +1,8 @@
-# Alpha Research API
+# Crypto Intelligence API
 
 > Trading intelligence for AI agents. Pay-per-use via x402 micropayments.
 
-Alpha Research API delivers AI-powered market intelligence through five endpoints — token analysis, trending detection, X/Twitter sentiment, neural search, and deep research — all accessible via USDC micropayments. No API keys. No subscriptions. Just pay and receive.
+Crypto Intelligence API delivers AI-powered market intelligence through five endpoints — token analysis, trending detection, X/Twitter sentiment, neural search, and deep research — all accessible via USDC micropayments. No API keys. No subscriptions. Just pay and receive.
 
 Available via **REST** (`GET /alpha/*`) and **MCP** (`POST /mcp`). Same tools, same pricing.
 
@@ -52,10 +52,10 @@ Available via **REST** (`GET /alpha/*`) and **MCP** (`POST /mcp`). Same tools, s
 
 | Endpoint | Price | What You Get |
 |---|---|---|
-| `/alpha/token` | $0.02 USDC | Price, volume, market cap + AI trading signals for any token |
-| `/alpha/trending` | $0.02 USDC | Top trending tokens + AI narrative detection |
+| `/alpha/token` | $0.05 USDC | Price, volume, market cap + AI trading signals for any token |
+| `/alpha/trending` | $0.05 USDC | Top trending tokens + AI narrative detection |
 | `/alpha/sentiment` | $0.08 USDC | X/Twitter sentiment analysis (10 tweets) with bull/bear scoring |
-| `/alpha/search` | $0.03 USDC | Neural search via Exa + AI summary with sources |
+| `/alpha/search` | $0.05 USDC | Neural search via Exa + AI summary with sources |
 | `/alpha/deep` | $0.15 USDC | Full research: Exa + Firecrawl + Claude + X sentiment combined |
 
 **Optional add-on:** Append `?twitter=true` to `/alpha/token` or `/alpha/trending` for X/Twitter data (+$0.05 USDC).
@@ -64,7 +64,7 @@ Available via **REST** (`GET /alpha/*`) and **MCP** (`POST /mcp`). Same tools, s
 
 ## MCP Server
 
-The MCP server exposes all Alpha Research tools via [Model Context Protocol](https://modelcontextprotocol.io) over Streamable HTTP. AI agents can discover and call tools using standard MCP JSON-RPC, with x402 USDC payments on **Base or Solana**.
+The MCP server exposes all Crypto Intelligence tools via [Model Context Protocol](https://modelcontextprotocol.io) over Streamable HTTP. AI agents can discover and call tools using standard MCP JSON-RPC, with x402 USDC payments on **Base or Solana**.
 
 **Endpoint:** `POST https://x402.911fund.io/mcp`
 
@@ -72,10 +72,10 @@ The MCP server exposes all Alpha Research tools via [Model Context Protocol](htt
 
 | Tool | Price | Description |
 |---|---|---|
-| `alpha_token` | $0.02 | Token analysis with price, volume, AI signals. `twitter: true` adds X data (+$0.05). |
-| `alpha_trending` | $0.02 | Trending tokens and narratives. `twitter: true` adds X data (+$0.05). |
+| `alpha_token` | $0.05 | Token analysis with price, volume, AI signals. `twitter: true` adds X data (+$0.05). |
+| `alpha_trending` | $0.05 | Trending tokens and narratives. `twitter: true` adds X data (+$0.05). |
 | `alpha_sentiment` | $0.08 | X/Twitter sentiment with bull/bear scoring. |
-| `alpha_search` | $0.03 | Neural search via Exa + AI summary. |
+| `alpha_search` | $0.05 | Neural search via Exa + AI summary. |
 | `alpha_deep` | $0.15 | Deep research: Exa + Firecrawl + Claude + X. Up to 60s. |
 | `alpha_stats` | Free | Gateway stats (uptime, memory, rate limits). |
 
@@ -211,7 +211,7 @@ const walletClient = createWalletClient({
 
 const x402Fetch = createX402Fetch(walletClient);
 
-// Token analysis -- $0.02
+// Token analysis -- $0.05
 const res = await x402Fetch("https://x402.911fund.io/alpha/token?symbol=SOL");
 const data = await res.json();
 console.log(data);
@@ -241,7 +241,7 @@ console.log(data);
 
 | Param | Required | Description |
 |---|---|---|
-| `query` | Yes* | Search term -- cashtag (`$WIF`), topic, or account |
+| `query` | Yes* | Search query -- cashtag (`$WIF`), topic, or account |
 | `topic` | Yes* | Alias for `query` |
 | `token` | Yes* | Alias for `query` |
 
