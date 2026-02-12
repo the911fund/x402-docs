@@ -1,7 +1,7 @@
 {
   "x402Version": "1.0",
-  "name": "Crypto Intelligence API",
-  "description": "AI-powered crypto intelligence for autonomous agents. USDC payments on Base, Ethereum, and Solana.",
+  "name": "AI Intelligence API",
+  "description": "AI-powered trading intelligence for autonomous agents. USDC payments on Base, Ethereum, and Solana.",
   "documentation": "https://github.com/the911fund/x402-docs",
   "networks": ["base", "ethereum", "solana"],
   "paymentAsset": "USDC",

@@ -1,8 +1,8 @@
-# Crypto Intelligence API
+# AI Intelligence API
 
 > Trading intelligence for AI agents. Pay-per-use via x402 micropayments.
 
-Crypto Intelligence API delivers AI-powered market intelligence through eight endpoints — token analysis, trending detection, X/Twitter sentiment, neural search, deep research, prediction markets, macro economics, and news aggregation — all accessible via USDC micropayments. No API keys. No subscriptions. Just pay and receive.
+AI Intelligence API delivers AI-powered market intelligence through eight endpoints — token analysis, trending detection, X/Twitter sentiment, neural search, deep research, prediction markets, macro economics, and news aggregation — all accessible via USDC micropayments. No API keys. No subscriptions. Just pay and receive.
 
 Available via **REST** (`GET /alpha/*`) and **MCP** (`POST /mcp`). Same tools, same pricing.
 
@@ -67,7 +67,7 @@ Available via **REST** (`GET /alpha/*`) and **MCP** (`POST /mcp`). Same tools, s
 
 ## MCP Server
 
-The MCP server exposes all Crypto Intelligence tools via [Model Context Protocol](https://modelcontextprotocol.io) over Streamable HTTP. AI agents can discover and call tools using standard MCP JSON-RPC, with x402 USDC payments on **Base or Solana**.
+The MCP server exposes all AI Intelligence tools via [Model Context Protocol](https://modelcontextprotocol.io) over Streamable HTTP. AI agents can discover and call tools using standard MCP JSON-RPC, with x402 USDC payments on **Base or Solana**.
 
 **Endpoint:** `POST https://x402.911fund.io/mcp`
 
