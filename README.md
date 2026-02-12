@@ -2,7 +2,7 @@
 
 > Trading intelligence for AI agents. Pay-per-use via x402 micropayments.
 
-Crypto Intelligence API delivers AI-powered market intelligence through five endpoints — token analysis, trending detection, X/Twitter sentiment, neural search, and deep research — all accessible via USDC micropayments. No API keys. No subscriptions. Just pay and receive.
+Crypto Intelligence API delivers AI-powered market intelligence through eight endpoints — token analysis, trending detection, X/Twitter sentiment, neural search, deep research, prediction markets, macro economics, and news aggregation — all accessible via USDC micropayments. No API keys. No subscriptions. Just pay and receive.
 
 Available via **REST** (`GET /alpha/*`) and **MCP** (`POST /mcp`). Same tools, same pricing.
 
@@ -57,6 +57,9 @@ Available via **REST** (`GET /alpha/*`) and **MCP** (`POST /mcp`). Same tools, s
 | `/alpha/sentiment` | $0.08 USDC | X/Twitter sentiment analysis (10 tweets) with bull/bear scoring |
 | `/alpha/search` | $0.05 USDC | Neural search via Exa + AI summary with sources |
 | `/alpha/deep` | $0.15 USDC | Full research: Exa + Firecrawl + Claude + X sentiment combined |
+| `/alpha/prediction` | $0.05 USDC | Prediction market intelligence from Polymarket + Kalshi with AI synthesis |
+| `/alpha/macro` | $0.08 USDC | Macro economic data from FRED + prediction markets with AI synthesis |
+| `/alpha/news` | $0.03 USDC | AI-filtered crypto news from CoinTelegraph, Decrypt, CoinDesk, Blockworks + X |
 
 **Optional add-on:** Append `?twitter=true` to `/alpha/token` or `/alpha/trending` for X/Twitter data (+$0.05 USDC).
 
@@ -77,6 +80,9 @@ The MCP server exposes all Crypto Intelligence tools via [Model Context Protocol
 | `alpha_sentiment` | $0.08 | X/Twitter sentiment with bull/bear scoring. |
 | `alpha_search` | $0.05 | Neural search via Exa + AI summary. |
 | `alpha_deep` | $0.15 | Deep research: Exa + Firecrawl + Claude + X. Up to 60s. |
+| `alpha_prediction` | $0.05 | Prediction market odds from Polymarket + Kalshi with AI synthesis. |
+| `alpha_macro` | $0.08 | Macro economic intelligence from FRED + prediction markets. |
+| `alpha_news` | $0.03 | Crypto news from major publications + Twitter with AI synthesis. |
 | `alpha_stats` | Free | Gateway stats (uptime, memory, rate limits). |
 
 ### MCP Quick Start
@@ -260,6 +266,31 @@ console.log(data);
 | `topic` | Yes* | Alias for `query` |
 | `token` | Yes* | Alias for `query` |
 | `url` | Yes* | Specific URL to research |
+
+### GET /alpha/prediction -- Prediction Markets
+
+| Param | Required | Description |
+|---|---|---|
+| `query` | Yes | Prediction query (e.g., `bitcoin 100k`, `fed rate cut`, `election`) |
+| `category` | No | Filter: `crypto`, `politics`, `economics`, `sports`, `other` |
+
+Sources: Polymarket, Kalshi. AI synthesis via Grok.
+
+### GET /alpha/macro -- Macro Economics
+
+| Param | Required | Description |
+|---|---|---|
+| `theme` | No | Macro theme (e.g., `inflation`, `employment`, `rates`). Defaults to broad overview. |
+
+Sources: FRED (Federal Reserve Economic Data), Polymarket, Kalshi. AI synthesis via Grok.
+
+### GET /alpha/news -- Crypto News
+
+| Param | Required | Description |
+|---|---|---|
+| `token` | No | Token symbol to filter news (e.g., `bitcoin`, `ETH`) |
+
+Sources: CoinTelegraph, Decrypt, CoinDesk, Blockworks (via RSS), X/Twitter. AI synthesis via Grok.
 
 ---
 

@@ -54,13 +54,34 @@
       "description": "Deep research with multi-source analysis (Exa + Firecrawl + Claude)",
       "priceUSD": 0.15,
       "params": ["query", "topic", "token", "url"]
+    },
+    {
+      "path": "/alpha/prediction",
+      "method": "GET",
+      "description": "Prediction market intelligence from Polymarket + Kalshi with AI synthesis",
+      "priceUSD": 0.05,
+      "params": ["query", "category"]
+    },
+    {
+      "path": "/alpha/macro",
+      "method": "GET",
+      "description": "Macro economic intelligence from FRED + prediction markets with AI synthesis",
+      "priceUSD": 0.08,
+      "params": ["theme"]
+    },
+    {
+      "path": "/alpha/news",
+      "method": "GET",
+      "description": "AI-filtered crypto news from major publications (CoinTelegraph, Decrypt, CoinDesk, Blockworks) + Twitter",
+      "priceUSD": 0.03,
+      "params": ["token"]
     }
   ],
   "mcp": {
     "url": "https://x402.911fund.io/mcp",
     "transport": "streamable-http",
     "method": "POST",
-    "tools": 6,
+    "tools": 9,
     "chains": ["base", "solana"],
     "pricing": {
       "alpha_token": 0.05,
@@ -68,6 +89,9 @@
       "alpha_sentiment": 0.08,
       "alpha_search": 0.05,
       "alpha_deep": 0.15,
+      "alpha_prediction": 0.05,
+      "alpha_macro": 0.08,
+      "alpha_news": 0.03,
       "alpha_stats": 0
     }
   },
