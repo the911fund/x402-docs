@@ -271,7 +271,7 @@ console.log(data);
 
 | Param | Required | Description |
 |---|---|---|
-| `query` | Yes | Prediction query (e.g., `bitcoin 100k`, `fed rate cut`, `election`) |
+| `query` | Yes | Prediction query (e.g., `fed chair`, `trump tariff`, `bitcoin 150k`, `recession`, `election`) |
 | `category` | No | Filter: `crypto`, `politics`, `economics`, `sports`, `other` |
 
 Sources: Polymarket, Kalshi. AI synthesis via Grok.
@@ -288,7 +288,8 @@ Sources: FRED (Federal Reserve Economic Data), Polymarket, Kalshi. AI synthesis 
 
 | Param | Required | Description |
 |---|---|---|
-| `token` | No | Token symbol to filter news (e.g., `bitcoin`, `ETH`) |
+| `query` | No | Search keyword (e.g., `bitcoin`, `ETF`, `regulation`, `solana`) |
+| `category` | No | Filter by source: `coindesk`, `cointelegraph`, `decrypt`, `blockworks` |
 
 Sources: CoinTelegraph, Decrypt, CoinDesk, Blockworks (via RSS), X/Twitter. AI synthesis via Grok.
 

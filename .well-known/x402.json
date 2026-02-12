@@ -74,7 +74,7 @@
       "method": "GET",
       "description": "AI-filtered crypto news from major publications (CoinTelegraph, Decrypt, CoinDesk, Blockworks) + Twitter",
       "priceUSD": 0.03,
-      "params": ["token"]
+      "params": ["query", "category"]
     }
   ],
   "mcp": {
