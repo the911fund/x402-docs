@@ -5,7 +5,11 @@
   "documentation": "https://github.com/the911fund/x402-docs",
   "x402scan": "https://www.x402scan.com/server/6b9891e8-6939-4c9c-842f-9658f99cb6f3",
   "agent": "https://www.x402scan.com/composer/agent/f0808374-e57c-4192-87f0-390dd7758953/chat",
-  "networks": ["base", "ethereum", "solana"],
+  "networks": [
+    "base",
+    "ethereum",
+    "solana"
+  ],
   "paymentAsset": "USDC",
   "resources": [
     {
@@ -20,7 +24,13 @@
           "description": "Include Twitter sentiment data"
         }
       ],
-      "params": ["address", "token", "symbol", "chain", "twitter"]
+      "params": [
+        "address",
+        "token",
+        "symbol",
+        "chain",
+        "twitter"
+      ]
     },
     {
       "path": "/alpha/trending",
@@ -34,49 +44,73 @@
           "description": "Include Twitter trend data"
         }
       ],
-      "params": ["category", "limit", "twitter"]
+      "params": [
+        "category",
+        "limit",
+        "twitter"
+      ]
     },
     {
       "path": "/alpha/sentiment",
       "method": "GET",
       "description": "Market sentiment analysis with Twitter data included",
       "priceUSD": 0.08,
-      "params": ["query", "topic", "token"]
+      "params": [
+        "query",
+        "topic",
+        "token"
+      ]
     },
     {
       "path": "/alpha/search",
       "method": "GET",
       "description": "Neural search across crypto intelligence sources (Exa + AI)",
       "priceUSD": 0.05,
-      "params": ["query", "q"]
+      "params": [
+        "query",
+        "q"
+      ]
     },
     {
       "path": "/alpha/deep",
       "method": "GET",
       "description": "Deep research with multi-source analysis (Exa + Firecrawl + Claude)",
       "priceUSD": 0.15,
-      "params": ["query", "topic", "token", "url"]
+      "params": [
+        "query",
+        "topic",
+        "token",
+        "url"
+      ]
     },
     {
       "path": "/alpha/prediction",
       "method": "GET",
       "description": "Prediction market intelligence from Polymarket + Kalshi with AI synthesis",
       "priceUSD": 0.05,
-      "params": ["query", "category"]
+      "params": [
+        "query",
+        "category"
+      ]
     },
     {
       "path": "/alpha/macro",
       "method": "GET",
       "description": "Macro economic intelligence from FRED + prediction markets with AI synthesis",
       "priceUSD": 0.08,
-      "params": ["theme"]
+      "params": [
+        "theme"
+      ]
     },
     {
       "path": "/alpha/news",
       "method": "GET",
       "description": "AI-filtered crypto news from major publications (CoinTelegraph, Decrypt, CoinDesk, Blockworks) + Twitter",
       "priceUSD": 0.03,
-      "params": ["query", "category"]
+      "params": [
+        "query",
+        "category"
+      ]
     }
   ],
   "mcp": {
@@ -84,7 +118,10 @@
     "transport": "streamable-http",
     "method": "POST",
     "tools": 9,
-    "chains": ["base", "solana"],
+    "chains": [
+      "base",
+      "solana"
+    ],
     "pricing": {
       "alpha_token": 0.05,
       "alpha_trending": 0.05,
@@ -122,5 +159,10 @@
       "usdc": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
       "receiver": "CtbPTTFMRfULUMz7DjPDRCKXVSBEcAEXeTUq4n7fSFuf"
     }
-  ]
+  ],
+  "discovery": {
+    "x402": "https://x402.911fund.io/.well-known/x402.json",
+    "mcp_manifest": "https://x402.911fund.io/.well-known/mcp",
+    "mcp_server_card": "https://x402.911fund.io/.well-known/mcp/server-card.json"
+  }
 }

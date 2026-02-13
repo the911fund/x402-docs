@@ -355,9 +355,15 @@ These limitations will resolve as the SDK and CDP facilitator add broader chain 
 
 ## Machine-Readable Discovery
 
+Three auto-discovery endpoints for AI clients and tooling:
+
 ```
-GET https://x402.911fund.io/.well-known/x402.json
+GET https://x402.911fund.io/.well-known/x402.json          # x402 payment discovery
+GET https://x402.911fund.io/.well-known/mcp                 # MCP manifest (SEP-1960)
+GET https://x402.911fund.io/.well-known/mcp/server-card.json # MCP server card (SEP-1649)
 ```
+
+The **MCP manifest** lets AI clients auto-detect the MCP endpoint, transport, and payment requirements. The **server card** provides tool listings and server metadata per the MCP specification.
 
 ## Stats & Health
 
