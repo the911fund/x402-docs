@@ -1,8 +1,8 @@
-# AI Intelligence API
+# x402 Meta Gateway
 
-> Trading intelligence for AI agents. Pay-per-use via x402 micropayments.
+> AI-synthesized intelligence from 10+ sources. Pay per query with USDC.
 
-AI Intelligence API delivers AI-powered market intelligence through eight endpoints — token analysis, trending detection, X/Twitter sentiment, neural search, deep research, prediction markets, macro economics, and news aggregation — all accessible via USDC micropayments. No API keys. No subscriptions. Just pay and receive.
+x402 Meta Gateway delivers AI-powered market intelligence through eight endpoints — token analysis, trending detection, X/Twitter sentiment, neural search, deep research, prediction markets, macro economics, and news aggregation — all accessible via USDC micropayments. No API keys. No subscriptions. Just pay and receive.
 
 Available via **REST** (`GET /alpha/*`) and **MCP** (`POST /mcp`). Same tools, same pricing.
 
@@ -369,6 +369,8 @@ GET https://x402.911fund.io/stats
 ## Links
 
 - **API:** https://x402.911fund.io
+- **x402scan Server:** https://www.x402scan.com/server/6b9891e8-6939-4c9c-842f-9658f99cb6f3
+- **AI Agent (Chat):** https://www.x402scan.com/composer/agent/f0808374-e57c-4192-87f0-390dd7758953/chat
 - **Docs:** https://github.com/the911fund/x402-docs
 - **x402 Protocol:** https://x402.org
 - **x402 Coinbase Docs:** https://docs.cdp.coinbase.com/x402

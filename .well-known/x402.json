@@ -1,8 +1,10 @@
 {
   "x402Version": "1.0",
-  "name": "AI Intelligence API",
-  "description": "AI-powered trading intelligence for autonomous agents. USDC payments on Base, Ethereum, and Solana.",
+  "name": "x402 Meta Gateway",
+  "description": "AI-synthesized intelligence from 10+ sources. Token analysis, trends, X sentiment, prediction markets, macro economics, and news. Pay per query with USDC on Base, Ethereum, or Solana.",
   "documentation": "https://github.com/the911fund/x402-docs",
+  "x402scan": "https://www.x402scan.com/server/6b9891e8-6939-4c9c-842f-9658f99cb6f3",
+  "agent": "https://www.x402scan.com/composer/agent/f0808374-e57c-4192-87f0-390dd7758953/chat",
   "networks": ["base", "ethereum", "solana"],
   "paymentAsset": "USDC",
   "resources": [
