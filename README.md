@@ -52,16 +52,16 @@ Available via **REST** (`GET /alpha/*`) and **MCP** (`POST /mcp`). Same tools, s
 
 | Endpoint | Price | What You Get |
 |---|---|---|
-| `/alpha/token` | $0.05 USDC | Price, volume, market cap + AI trading signals for any token |
-| `/alpha/trending` | $0.05 USDC | Top trending tokens + AI narrative detection |
-| `/alpha/sentiment` | $0.08 USDC | X/Twitter sentiment analysis (10 tweets) with bull/bear scoring |
-| `/alpha/search` | $0.05 USDC | Neural search via Exa + AI summary with sources |
-| `/alpha/deep` | $0.15 USDC | Full research: Exa + Firecrawl + Claude + X sentiment combined |
+| `/alpha/token` | $0.05 USDC | Price, volume, market cap + X/Twitter engagement data + AI trading signals |
+| `/alpha/trending` | $0.05 USDC | Top trending tokens + X/Twitter analysis + AI narrative detection |
+| `/alpha/sentiment` | $0.08 USDC | 99 tweets analyzed with full engagement metrics (likes, views, retweets, followers) + bull/bear scoring |
+| `/alpha/search` | $0.05 USDC | Neural search via Exa + X/Twitter + AI summary with sources |
+| `/alpha/deep` | $0.15 USDC | Full research: Exa + Firecrawl + Claude + 99 tweets with engagement data |
 | `/alpha/prediction` | $0.05 USDC | Prediction market intelligence from Polymarket + Kalshi with AI synthesis |
 | `/alpha/macro` | $0.08 USDC | Macro economic data from FRED + prediction markets with AI synthesis |
 | `/alpha/news` | $0.03 USDC | AI-filtered crypto news from CoinTelegraph, Decrypt, CoinDesk, Blockworks + X |
 
-**Optional add-on:** Append `?twitter=true` to `/alpha/token` or `/alpha/trending` for X/Twitter data (+$0.05 USDC).
+X/Twitter engagement data (likes, views, retweets, followers, verified status) is included free on all endpoints.
 
 ---
 
@@ -75,11 +75,11 @@ The MCP server exposes all AI Intelligence tools via [Model Context Protocol](ht
 
 | Tool | Price | Description |
 |---|---|---|
-| `alpha_token` | $0.05 | Token analysis with price, volume, AI signals. `twitter: true` adds X data (+$0.05). |
-| `alpha_trending` | $0.05 | Trending tokens and narratives. `twitter: true` adds X data (+$0.05). |
-| `alpha_sentiment` | $0.08 | X/Twitter sentiment with bull/bear scoring. |
-| `alpha_search` | $0.05 | Neural search via Exa + AI summary. |
-| `alpha_deep` | $0.15 | Deep research: Exa + Firecrawl + Claude + X. Up to 60s. |
+| `alpha_token` | $0.05 | Token analysis with price, volume, X/Twitter engagement data, and AI signals. |
+| `alpha_trending` | $0.05 | Trending tokens and narratives with X/Twitter analysis. |
+| `alpha_sentiment` | $0.08 | 99 tweets with full engagement metrics + bull/bear scoring. |
+| `alpha_search` | $0.05 | Neural search via Exa + X/Twitter + AI summary. |
+| `alpha_deep` | $0.15 | Deep research: Exa + Firecrawl + Claude + 99 tweets. Up to 60s. |
 | `alpha_prediction` | $0.05 | Prediction market odds from Polymarket + Kalshi with AI synthesis. |
 | `alpha_macro` | $0.08 | Macro economic intelligence from FRED + prediction markets. |
 | `alpha_news` | $0.03 | Crypto news from major publications + Twitter with AI synthesis. |
@@ -233,7 +233,8 @@ console.log(data);
 | `address` | Yes* | Contract address (alternative to symbol) |
 | `token` | Yes* | Alias for `address` or `symbol` |
 | `chain` | No | Chain for lookup (default: `base`) |
-| `twitter` | No | Add X/Twitter sentiment data (+$0.05 USDC) |
+
+X/Twitter engagement data included automatically.
 
 ### GET /alpha/trending -- Market Movers
 
@@ -241,7 +242,8 @@ console.log(data);
 |---|---|---|
 | `category` | No | Filter by category |
 | `limit` | No | Number of results |
-| `twitter` | No | Add X/Twitter mentions (+$0.05 USDC) |
+
+X/Twitter analysis included automatically.
 
 ### GET /alpha/sentiment -- X/Twitter Analysis
 
