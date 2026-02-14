@@ -52,14 +52,14 @@ Available via **REST** (`GET /alpha/*`) and **MCP** (`POST /mcp`). Same tools, s
 
 | Endpoint | Price | What You Get |
 |---|---|---|
-| `/alpha/token` | $0.05 USDC | Price, volume, market cap + X/Twitter engagement data + AI trading signals |
-| `/alpha/trending` | $0.05 USDC | Top trending tokens + X/Twitter analysis + AI narrative detection |
-| `/alpha/sentiment` | $0.08 USDC | 99 tweets analyzed with full engagement metrics (likes, views, retweets, followers) + bull/bear scoring |
-| `/alpha/search` | $0.05 USDC | Neural search via Exa + X/Twitter + AI summary with sources |
-| `/alpha/deep` | $0.15 USDC | Full research: Exa + Firecrawl + Claude + 99 tweets with engagement data |
-| `/alpha/prediction` | $0.05 USDC | Prediction market intelligence from Polymarket + Kalshi with AI synthesis |
-| `/alpha/macro` | $0.08 USDC | Macro economic data from FRED + prediction markets with AI synthesis |
-| `/alpha/news` | $0.03 USDC | AI-filtered crypto news from CoinTelegraph, Decrypt, CoinDesk, Blockworks + X |
+| `/alpha/token` | $0.03 USDC | Price, volume, market cap + X/Twitter engagement data + AI trading signals |
+| `/alpha/trending` | $0.03 USDC | Top trending tokens + X/Twitter analysis + AI narrative detection |
+| `/alpha/sentiment` | $0.05 USDC | 99 tweets analyzed with full engagement metrics (likes, views, retweets, followers) + bull/bear scoring |
+| `/alpha/search` | $0.03 USDC | Neural search via Exa + X/Twitter + AI summary with sources |
+| `/alpha/deep` | $0.10 USDC | Full research: Exa + Firecrawl + Claude + 99 tweets with engagement data |
+| `/alpha/prediction` | $0.03 USDC | Prediction market intelligence with X/Twitter sentiment (Polymarket + Kalshi + X + Grok) |
+| `/alpha/macro` | $0.05 USDC | Macro economic pulse with X/Twitter sentiment (FRED + Polymarket + Kalshi + X + Grok) |
+| `/alpha/news` | $0.02 USDC | AI-filtered crypto news from CoinTelegraph, Decrypt, CoinDesk, Blockworks + X |
 
 X/Twitter engagement data (likes, views, retweets, followers, verified status) is included free on all endpoints.
 
@@ -75,14 +75,14 @@ The MCP server exposes all AI Intelligence tools via [Model Context Protocol](ht
 
 | Tool | Price | Description |
 |---|---|---|
-| `alpha_token` | $0.05 | Token analysis with price, volume, X/Twitter engagement data, and AI signals. |
-| `alpha_trending` | $0.05 | Trending tokens and narratives with X/Twitter analysis. |
-| `alpha_sentiment` | $0.08 | 99 tweets with full engagement metrics + bull/bear scoring. |
-| `alpha_search` | $0.05 | Neural search via Exa + X/Twitter + AI summary. |
-| `alpha_deep` | $0.15 | Deep research: Exa + Firecrawl + Claude + 99 tweets. Up to 60s. |
-| `alpha_prediction` | $0.05 | Prediction market odds from Polymarket + Kalshi with AI synthesis. |
-| `alpha_macro` | $0.08 | Macro economic intelligence from FRED + prediction markets. |
-| `alpha_news` | $0.03 | Crypto news from major publications + Twitter with AI synthesis. |
+| `alpha_token` | $0.03 | Token analysis with price, volume, X/Twitter engagement data, and AI signals. |
+| `alpha_trending` | $0.03 | Trending tokens and narratives with X/Twitter analysis. |
+| `alpha_sentiment` | $0.05 | 99 tweets with full engagement metrics + bull/bear scoring. |
+| `alpha_search` | $0.03 | Neural search via Exa + X/Twitter + AI summary. |
+| `alpha_deep` | $0.10 | Deep research: Exa + Firecrawl + Claude + 99 tweets. Up to 60s. |
+| `alpha_prediction` | $0.03 | Prediction market odds + X/Twitter sentiment (Polymarket + Kalshi + X + Grok). |
+| `alpha_macro` | $0.05 | Macro economic intelligence + X/Twitter sentiment (FRED + Polymarket + Kalshi + X + Grok). |
+| `alpha_news` | $0.02 | Crypto news from major publications + Twitter with AI synthesis. |
 | `alpha_stats` | Free | Gateway stats (uptime, memory, rate limits). |
 
 ### MCP Quick Start
@@ -217,7 +217,7 @@ const walletClient = createWalletClient({
 
 const x402Fetch = createX402Fetch(walletClient);
 
-// Token analysis -- $0.05
+// Token analysis -- $0.03
 const res = await x402Fetch("https://x402.911fund.io/alpha/token?symbol=SOL");
 const data = await res.json();
 console.log(data);
@@ -276,7 +276,7 @@ X/Twitter analysis included automatically.
 | `query` | Yes | Prediction query (e.g., `fed chair`, `trump tariff`, `bitcoin 150k`, `recession`, `election`) |
 | `category` | No | Filter: `crypto`, `politics`, `economics`, `sports`, `other` |
 
-Sources: Polymarket, Kalshi. AI synthesis via Grok.
+Sources: Polymarket, Kalshi, X/Twitter. AI synthesis via Grok.
 
 ### GET /alpha/macro -- Macro Economics
 
@@ -284,7 +284,7 @@ Sources: Polymarket, Kalshi. AI synthesis via Grok.
 |---|---|---|
 | `theme` | No | Macro theme (e.g., `inflation`, `employment`, `rates`). Defaults to broad overview. |
 
-Sources: FRED (Federal Reserve Economic Data), Polymarket, Kalshi. AI synthesis via Grok.
+Sources: FRED (Federal Reserve Economic Data), Polymarket, Kalshi, X/Twitter. AI synthesis via Grok.
 
 ### GET /alpha/news -- Crypto News
 

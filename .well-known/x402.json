@@ -16,7 +16,7 @@
       "path": "/alpha/token",
       "method": "GET",
       "description": "Token analysis with price, volume, market cap, X/Twitter engagement data, and AI signals",
-      "priceUSD": 0.05,
+      "priceUSD": 0.03,
       "params": [
         "address",
         "token",
@@ -28,7 +28,7 @@
       "path": "/alpha/trending",
       "method": "GET",
       "description": "Trending tokens and narratives with X/Twitter analysis",
-      "priceUSD": 0.05,
+      "priceUSD": 0.03,
       "params": [
         "category",
         "limit"
@@ -38,7 +38,7 @@
       "path": "/alpha/sentiment",
       "method": "GET",
       "description": "99 tweets with full engagement metrics (likes, views, retweets, followers) and AI bull/bear scoring",
-      "priceUSD": 0.08,
+      "priceUSD": 0.05,
       "params": [
         "query",
         "topic",
@@ -49,7 +49,7 @@
       "path": "/alpha/search",
       "method": "GET",
       "description": "Neural search across crypto intelligence sources (Exa + X/Twitter + AI)",
-      "priceUSD": 0.05,
+      "priceUSD": 0.03,
       "params": [
         "query",
         "q"
@@ -59,7 +59,7 @@
       "path": "/alpha/deep",
       "method": "GET",
       "description": "Deep research with multi-source analysis (Exa + Firecrawl + Claude + 99 tweets with engagement data)",
-      "priceUSD": 0.15,
+      "priceUSD": 0.10,
       "params": [
         "query",
         "topic",
@@ -70,8 +70,8 @@
     {
       "path": "/alpha/prediction",
       "method": "GET",
-      "description": "Prediction market intelligence from Polymarket + Kalshi with AI synthesis",
-      "priceUSD": 0.05,
+      "description": "Prediction market intelligence with X/Twitter sentiment (Polymarket + Kalshi + X + Grok)",
+      "priceUSD": 0.03,
       "params": [
         "query",
         "category"
@@ -80,8 +80,8 @@
     {
       "path": "/alpha/macro",
       "method": "GET",
-      "description": "Macro economic intelligence from FRED + prediction markets with AI synthesis",
-      "priceUSD": 0.08,
+      "description": "Macro economic pulse with X/Twitter sentiment (FRED + Polymarket + Kalshi + X + Grok)",
+      "priceUSD": 0.05,
       "params": [
         "theme"
       ]
@@ -90,7 +90,7 @@
       "path": "/alpha/news",
       "method": "GET",
       "description": "AI-filtered crypto news from major publications (CoinTelegraph, Decrypt, CoinDesk, Blockworks) + Twitter",
-      "priceUSD": 0.03,
+      "priceUSD": 0.02,
       "params": [
         "query",
         "category"
@@ -107,14 +107,14 @@
       "solana"
     ],
     "pricing": {
-      "alpha_token": 0.05,
-      "alpha_trending": 0.05,
-      "alpha_sentiment": 0.08,
-      "alpha_search": 0.05,
-      "alpha_deep": 0.15,
-      "alpha_prediction": 0.05,
-      "alpha_macro": 0.08,
-      "alpha_news": 0.03,
+      "alpha_token": 0.03,
+      "alpha_trending": 0.03,
+      "alpha_sentiment": 0.05,
+      "alpha_search": 0.03,
+      "alpha_deep": 0.10,
+      "alpha_prediction": 0.03,
+      "alpha_macro": 0.05,
+      "alpha_news": 0.02,
       "alpha_stats": 0
     }
   },
