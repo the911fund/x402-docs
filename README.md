@@ -54,9 +54,9 @@ Available via **REST** (`GET /alpha/*`) and **MCP** (`POST /mcp`). Same tools, s
 |---|---|---|
 | `/alpha/token` | $0.03 USDC | Price, volume, market cap + X/Twitter engagement data + AI trading signals |
 | `/alpha/trending` | $0.03 USDC | Top trending tokens + X/Twitter analysis + AI narrative detection |
-| `/alpha/sentiment` | $0.05 USDC | 99 tweets analyzed with full engagement metrics (likes, views, retweets, followers) + bull/bear scoring |
+| `/alpha/sentiment` | $0.05 USDC | up to 99 tweets analyzed with full engagement metrics (likes, views, retweets, followers) + bull/bear scoring |
 | `/alpha/search` | $0.03 USDC | Neural search via Exa + X/Twitter + AI summary with sources |
-| `/alpha/deep` | $0.10 USDC | Full research: Exa + Firecrawl + Claude + 99 tweets with engagement data |
+| `/alpha/deep` | $0.10 USDC | Full research: Exa + Firecrawl + Claude + up to 99 tweets with engagement data |
 | `/alpha/prediction` | $0.03 USDC | Prediction market intelligence with X/Twitter sentiment (Polymarket + Kalshi + X + Grok) |
 | `/alpha/macro` | $0.05 USDC | Macro economic pulse with X/Twitter sentiment (FRED + Polymarket + Kalshi + X + Grok) |
 | `/alpha/news` | $0.02 USDC | AI-filtered crypto news from CoinTelegraph, Decrypt, CoinDesk, Blockworks + X |
@@ -77,9 +77,9 @@ The MCP server exposes all AI Intelligence tools via [Model Context Protocol](ht
 |---|---|---|
 | `alpha_token` | $0.03 | Token analysis with price, volume, X/Twitter engagement data, and AI signals. |
 | `alpha_trending` | $0.03 | Trending tokens and narratives with X/Twitter analysis. |
-| `alpha_sentiment` | $0.05 | 99 tweets with full engagement metrics + bull/bear scoring. |
+| `alpha_sentiment` | $0.05 | up to 99 tweets with full engagement metrics + bull/bear scoring. |
 | `alpha_search` | $0.03 | Neural search via Exa + X/Twitter + AI summary. |
-| `alpha_deep` | $0.10 | Deep research: Exa + Firecrawl + Claude + 99 tweets. Up to 60s. |
+| `alpha_deep` | $0.10 | Deep research: Exa + Firecrawl + Claude + up to 99 tweets. Up to 60s. |
 | `alpha_prediction` | $0.03 | Prediction market odds + X/Twitter sentiment (Polymarket + Kalshi + X + Grok). |
 | `alpha_macro` | $0.05 | Macro economic intelligence + X/Twitter sentiment (FRED + Polymarket + Kalshi + X + Grok). |
 | `alpha_news` | $0.02 | Crypto news from major publications + Twitter with AI synthesis. |
