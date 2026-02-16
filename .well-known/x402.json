@@ -59,7 +59,7 @@
       "path": "/alpha/deep",
       "method": "GET",
       "description": "Deep research with multi-source analysis (Exa + Firecrawl + Claude + 99 tweets with engagement data)",
-      "priceUSD": 0.10,
+      "priceUSD": 0.1,
       "params": [
         "query",
         "topic",
@@ -80,10 +80,32 @@
     {
       "path": "/alpha/macro",
       "method": "GET",
-      "description": "Macro economic pulse with X/Twitter sentiment (FRED + Polymarket + Kalshi + X + Grok)",
+      "description": "Macro economic pulse with X/Twitter sentiment (FRED + Polymarket + Kalshi + X + Grok) \u2014 20 themes",
       "priceUSD": 0.05,
       "params": [
         "theme"
+      ],
+      "themes": [
+        "inflation",
+        "rates",
+        "employment",
+        "recession",
+        "energy",
+        "housing",
+        "trade",
+        "markets",
+        "consumer",
+        "debt",
+        "manufacturing",
+        "wages",
+        "credit",
+        "crypto",
+        "money",
+        "currency",
+        "financial_stress",
+        "commodities",
+        "banking",
+        "general"
       ]
     },
     {
@@ -111,7 +133,7 @@
       "alpha_trending": 0.03,
       "alpha_sentiment": 0.05,
       "alpha_search": 0.03,
-      "alpha_deep": 0.10,
+      "alpha_deep": 0.1,
       "alpha_prediction": 0.03,
       "alpha_macro": 0.05,
       "alpha_news": 0.02,

@@ -282,7 +282,32 @@ Sources: Polymarket, Kalshi, X/Twitter. AI synthesis via Grok.
 
 | Param | Required | Description |
 |---|---|---|
-| `theme` | No | Macro theme (e.g., `inflation`, `employment`, `rates`). Defaults to broad overview. |
+| `theme` | No | One of 20 macro themes (see below). Defaults to `general`. |
+
+**Available Themes (20):**
+
+| Theme | FRED Data |
+|---|---|
+| `inflation` | CPI, breakeven inflation, PCE |
+| `rates` | Fed funds rate, 10Y/2Y Treasury |
+| `employment` | Unemployment, nonfarm payrolls, jobless claims |
+| `recession` | Sahm rule, yield curve, consumer sentiment |
+| `energy` | WTI crude oil, gas prices, energy CPI |
+| `housing` | 30Y mortgage, housing starts, Case-Shiller, median price |
+| `trade` | Trade balance, dollar index, import prices |
+| `markets` | S&P 500, VIX, high yield credit spreads |
+| `consumer` | Retail sales, consumer sentiment, savings rate |
+| `debt` | Federal debt, debt/GDP ratio, deficit/GDP |
+| `manufacturing` | Industrial production, PPI, manufacturing employment |
+| `wages` | Avg hourly earnings, labor participation, ECI wages |
+| `credit` | Consumer credit, credit card + mortgage delinquencies |
+| `crypto` | Bitcoin + Ethereum prices (Coinbase via FRED) |
+| `money` | M2 money stock, monetary base, M2 velocity |
+| `currency` | Dollar index, USD/EUR, CAD/USD |
+| `financial_stress` | STL Financial Stress Index, VIX, credit spreads |
+| `commodities` | PPI all commodities, crude oil, energy CPI |
+| `banking` | C&I loans, mortgage + credit card delinquency rates |
+| `general` | Fed funds, CPI, unemployment, GDP, 10Y, yield curve |
 
 Sources: FRED (Federal Reserve Economic Data), Polymarket, Kalshi, X/Twitter. AI synthesis via Grok.
 
