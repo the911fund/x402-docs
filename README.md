@@ -322,6 +322,33 @@ Sources: CoinTelegraph, Decrypt, CoinDesk, Blockworks (via RSS), X/Twitter. AI s
 
 ---
 
+## Trust, Billing, and Query Quality
+
+### Trust/Billing Semantics
+
+| Status | Code | Charged? | Meaning |
+|---|---|---:|---|
+| `400` | `invalid_params` | No | Missing or malformed required input. |
+| `422` | `needs_clarification` | No | Input is too short/ambiguous for reliable execution. |
+| `402` | payment required | Yes (on successful paid retry) | Valid request shape, payment required before execution. |
+| `200` | preview | No | `preview=true` (REST) or `preview: true` (MCP) returns estimate only. |
+
+Notes:
+- Trust validation runs before payment on protected `/alpha/*` routes.
+- Clarification and preview flows are explicitly no-charge.
+- Responses include `x-request-id` for traceability.
+
+### Best Query Patterns
+
+Use specific, intent-rich prompts. Prefer:
+- `/alpha/search?query=Jupiter DEX Solana fee switch timeline`
+- `/alpha/prediction?query=fed rate cut by June 2026&category=economics`
+- `/alpha/deep?query=Base L2 sequencer decentralization roadmap 2026`
+
+Avoid low-signal prompts likely to trigger clarification:
+- `hi`, `help`, `test`, single-character ticker fragments, or context-free one-word queries.
+
+
 ## How x402 Payment Works
 
 ### 1. Request Without Payment
