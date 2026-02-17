@@ -340,6 +340,20 @@ Notes:
 
 ### Best Query Patterns
 
+### Endpoint Query Playbook
+
+| Endpoint | Strong query example | Weak query example |
+|---|---|---|
+| `/alpha/token` | `/alpha/token?symbol=SOL` or `/alpha/token?address=0x...` | `/alpha/token?symbol=x` |
+| `/alpha/trending` | `/alpha/trending` or `/alpha/trending?category=defi` | `/alpha/trending?category=random` |
+| `/alpha/sentiment` | `/alpha/sentiment?query=JUP unlock schedule impact` | `/alpha/sentiment?query=hi` |
+| `/alpha/search` | `/alpha/search?query=Solana DEX fee switch timeline 2026` | `/alpha/search?query=ok` |
+| `/alpha/deep` | `/alpha/deep?query=Base L2 sequencer decentralization roadmap 2026` | `/alpha/deep?query=coin` |
+| `/alpha/prediction` | `/alpha/prediction?query=fed rate cut by June 2026&category=economics` | `/alpha/prediction?query=test` |
+| `/alpha/macro` | `/alpha/macro?theme=inflation` | `/alpha/macro?theme=whatever` |
+| `/alpha/news` | `/alpha/news?query=bitcoin ETF flows&category=coindesk` | `/alpha/news?query=hi` |
+
+
 Use specific, intent-rich prompts. Prefer:
 - `/alpha/search?query=Jupiter DEX Solana fee switch timeline`
 - `/alpha/prediction?query=fed rate cut by June 2026&category=economics`
