@@ -21,10 +21,10 @@ Available via **REST** (`GET /alpha/*`) and **MCP** (`POST /mcp`). Same tools, s
 | Chain | Status | Notes |
 |---|---|---|
 | **Base** | Live | Full support — CDP facilitator verification + settlement |
-| **Solana** | Live (limited) | Payment requirements returned. CDP facilitator does not yet verify SVM transactions — on-chain transfers succeed but server-side verification fails. |
+| **Solana** | Live (limited) | Payment requirements are returned, but verification may fail depending on facilitator SVM support (often `invalid_payload`). |
 | **Ethereum** | Not available | x402 SDK v1.0 does not include Ethereum mainnet in its network mappings (`processPriceToAtomicAmount`). Use Base (same addresses, lower fees) for EVM payments via MCP. |
 
-> **Why the difference?** REST endpoints handle payment verification directly via the Coinbase CDP facilitator, which supports all three chains. The MCP server builds payment requirements using the x402 SDK's `processPriceToAtomicAmount`, which has a more limited set of supported networks in v1.0. These are SDK/CDP limitations, not protocol limitations — support will expand as the SDK matures.
+> **Why the difference?** REST endpoints use a facilitator pool (Dexter primary with Coinbase CDP fallback), and Solana challenge accepts are health-gated by facilitator readiness. MCP currently verifies/settles through CDP paths and builds requirements via x402 SDK network mappings, so MCP chain behavior is more constrained. These are facilitator/SDK implementation limits, not protocol limits.
 
 ### Signing Requirements by Chain
 
@@ -407,19 +407,19 @@ The `@x402/fetch` SDK handles steps 1-3 automatically for EVM chains (Base, Ethe
 | **MCP Chains** | Base, Solana (Ethereum pending SDK support) |
 | **Token** | USDC |
 | **Protocol** | x402 (HTTP 402 Payment Required) |
-| **Facilitator** | Coinbase CDP |
+| **Facilitator** | REST: Dexter primary + Coinbase CDP fallback. MCP verify/settle: Coinbase CDP |
 | **Settlement** | Direct to wallet |
 | **Rate Limit** | 30 requests/minute per IP |
 
-## Known CDP/SDK Limitations
+## Known Facilitator/SDK Limitations
 
-These are limitations of the current Coinbase CDP facilitator and x402 SDK (v1.0), not protocol limitations:
+These are current facilitator/SDK implementation limits, not protocol limitations:
 
 - **MCP + Ethereum:** The x402 SDK's `processPriceToAtomicAmount` does not include Ethereum mainnet in its network mappings. Use Base for EVM payments via MCP (same wallet address, lower fees). REST API supports Ethereum normally.
-- **MCP + Solana verification:** The CDP facilitator does not yet verify SVM (Solana) transactions. On-chain USDC transfers succeed, but server-side `verify()` returns `invalid_payload`. Base verification works correctly.
+- **MCP + Solana verification:** Solana payment requirements can be issued, but verification may return `invalid_payload` when the active verification path lacks SVM support. Base verification is stable.
 - **Solana + Circle Wallets:** Circle Programmable Wallets' `signMessage` does not produce valid Solana x402 payments. Use `signTransaction` via `@solana/web3.js` or a Solana wallet adapter instead.
 
-These limitations will resolve as the SDK and CDP facilitator add broader chain support.
+These limitations should narrow as facilitator capabilities and SDK network support expand.
 
 ## Machine-Readable Discovery
 
