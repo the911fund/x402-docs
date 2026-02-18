@@ -61,7 +61,7 @@ Available via **REST** (`GET /alpha/*`) and **MCP** (`POST /mcp`). Same tools, s
 | `/alpha/macro` | $0.05 USDC | Macro economic pulse with X/Twitter sentiment (FRED + Polymarket + Kalshi + X + Grok) |
 | `/alpha/news` | $0.02 USDC | AI-filtered crypto news from CoinTelegraph, Decrypt, CoinDesk, Blockworks + X |
 
-X/Twitter engagement data (likes, views, retweets, followers, verified status) is included free on all endpoints.
+X/Twitter engagement data (likes, views, retweets, followers, verified status) is included free when available.
 
 ---
 
@@ -336,7 +336,27 @@ Sources: CoinTelegraph, Decrypt, CoinDesk, Blockworks (via RSS), X/Twitter. AI s
 Notes:
 - Trust validation runs before payment on protected `/alpha/*` routes.
 - Clarification and preview flows are explicitly no-charge.
+- Payment authorizes a compute attempt; it does not guarantee every upstream source is always reachable.
 - Responses include `x-request-id` for traceability.
+
+### X/Twitter Availability Semantics
+
+| Endpoint | X/Twitter Required? | Behavior if X/Twitter unavailable |
+|---|---:|---|
+| `/alpha/sentiment` | Yes | Returns `503 upstream_failed` |
+| `/alpha/token` | No | Returns `200` with `warnings:["twitter_unavailable"]` |
+| `/alpha/trending` | No | Returns `200` with `warnings:["twitter_unavailable"]` |
+| `/alpha/search` | No | Returns `200` with `warnings:["twitter_unavailable"]` |
+| `/alpha/deep` | No | Continues with available sources (partial result possible) |
+| `/alpha/prediction` | No | Returns `200` with `warnings:["twitter_unavailable"]` |
+| `/alpha/macro` | No | Returns `200` with `warnings:["twitter_unavailable"]` |
+| `/alpha/news` | No | Returns `200` with `warnings:["twitter_unavailable"]` |
+
+Common reasons X/Twitter may be unavailable:
+- No relevant tweets found for the specific query/time window.
+- Upstream X provider timeout or transient error.
+- Upstream rate limiting.
+- Query/filter combination excludes most matches.
 
 ### Best Query Patterns
 
