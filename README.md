@@ -61,7 +61,7 @@ Available via **REST** (`GET /alpha/*`) and **MCP** (`POST /mcp`). Same tools, s
 | `/alpha/macro` | $0.05 USDC | Macro economic pulse with X/Twitter sentiment (FRED + Polymarket + Kalshi + X + Grok) |
 | `/alpha/news` | $0.02 USDC | AI-filtered crypto news from CoinTelegraph, Decrypt, CoinDesk, Blockworks + X |
 
-X/Twitter engagement data (likes, views, retweets, followers, verified status) is included free when available.
+X/Twitter engagement data (likes, views, retweets, followers, verified status) has no separate surcharge when available.
 
 ---
 
