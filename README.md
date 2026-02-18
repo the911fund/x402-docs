@@ -477,3 +477,47 @@ GET https://x402.911fund.io/stats
 ## License
 
 MIT
+
+---
+
+## 2026-02-18 Runtime Contract Updates
+
+These fields are now live in production and should be used by agent clients and marketplace indexers.
+
+### Discovery (`/.well-known/x402.json`)
+
+Paid `resources[]` entries include:
+- `resource` (absolute endpoint URL)
+- `tags` (endpoint-level capability tags)
+- `serviceTags` (service-level tags)
+- `inputSchema` (JSON Schema for request params)
+- `outputSchema` (JSON Schema envelope with `meta`/`error` expectations)
+- `examples` (structured query examples)
+- `accepts[]` with payment metadata (`scheme`, `network`, `asset`, `payTo`, `maxAmountRequired`)
+
+### Stats (`/stats`)
+
+`/stats` now includes:
+- `paymentConversion`:
+  - `paidExecutions`
+  - `paid5xxFailures`
+  - `paid5xxRatePctOfPaid`
+  - `paid5xxPerChallengePct`
+- `latency`:
+  - `overallProtected` rolling quantiles (`p50_ms`, `p95_ms`, `p99_ms`, `max_ms`)
+  - `byEndpoint` rolling quantiles per paid route
+
+### Error Envelope
+
+REST errors now include:
+- top-level `request_id`
+- `error.code`
+- `error.message`
+- `error.action` (actionable remediation hint)
+- `meta` (trust/billing envelope)
+
+### Trust Guardrail
+
+Missing required input now resolves to pre-charge clarification:
+- `422` + `needs_clarification`
+- `meta.price_charged: false`
