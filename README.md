@@ -2,7 +2,7 @@
 
 > AI-synthesized intelligence from 10+ sources. Pay per query with USDC.
 
-x402 Meta Gateway delivers AI-powered market intelligence through eight endpoints — token analysis, trending detection, X/Twitter sentiment, neural search, deep research, prediction markets, macro economics, and news aggregation — all accessible via USDC micropayments. No API keys. No subscriptions. Just pay and receive.
+x402 Meta Gateway delivers AI-powered market intelligence through fourteen endpoints — token analysis, trending detection, X/Twitter sentiment, neural search, deep research, prediction markets, macro economics, news aggregation, on-chain activity tracking, token comparison, market narrative detection, event calendars, risk assessment, and portfolio analysis — all accessible via USDC micropayments. No API keys. No subscriptions. Just pay and receive.
 
 Available via **REST** (`GET /alpha/*`) and **MCP** (`POST /mcp`). Same tools, same pricing.
 
@@ -60,6 +60,12 @@ Available via **REST** (`GET /alpha/*`) and **MCP** (`POST /mcp`). Same tools, s
 | `/alpha/prediction` | $0.03 USDC | Prediction market intelligence with X/Twitter sentiment (Polymarket + Kalshi + X + Grok) |
 | `/alpha/macro` | $0.05 USDC | Macro economic pulse with X/Twitter sentiment (FRED + Polymarket + Kalshi + X + Grok) |
 | `/alpha/news` | $0.02 USDC | AI-filtered crypto news from CoinTelegraph, Decrypt, CoinDesk, Blockworks + X |
+| `/alpha/onchain` | $0.05 USDC | On-chain activity — whale movements, large transfers, DEX volume anomalies, smart money tracking |
+| `/alpha/compare` | $0.05 USDC | Side-by-side token comparison (2-5 tokens) across price, volume, sentiment, fundamentals |
+| `/alpha/narrative` | $0.05 USDC | Market narrative detection — AI tokens, RWA, L2, memecoins, DePIN capital flows |
+| `/alpha/calendar` | $0.03 USDC | Upcoming crypto events — token unlocks, upgrades, governance, launches, conferences |
+| `/alpha/risk` | $0.05 USDC | Token safety — audit status, rug pull signals, liquidity depth, holder concentration |
+| `/alpha/portfolio` | $0.05 USDC | Wallet portfolio analysis — holdings, diversification score, risk exposure, AI rebalancing |
 
 X/Twitter engagement data (likes, views, retweets, followers, verified status) has no separate surcharge when available.
 
@@ -83,6 +89,12 @@ The MCP server exposes all AI Intelligence tools via [Model Context Protocol](ht
 | `alpha_prediction` | $0.03 | Prediction market odds + X/Twitter sentiment (Polymarket + Kalshi + X + Grok). |
 | `alpha_macro` | $0.05 | Macro economic intelligence + X/Twitter sentiment (FRED + Polymarket + Kalshi + X + Grok). |
 | `alpha_news` | $0.02 | Crypto news from major publications + Twitter with AI synthesis. |
+| `alpha_onchain` | $0.05 | On-chain activity — whale movements, DEX volume, smart money tracking. |
+| `alpha_compare` | $0.05 | Side-by-side token comparison across price, volume, sentiment. |
+| `alpha_narrative` | $0.05 | Market narrative detection — AI, RWA, L2, meme, DePIN flows. |
+| `alpha_calendar` | $0.03 | Upcoming crypto events — unlocks, upgrades, governance, launches. |
+| `alpha_risk` | $0.05 | Token safety — audit status, rug pull signals, holder concentration. |
+| `alpha_portfolio` | $0.05 | Wallet portfolio — holdings, diversification, risk, AI rebalancing. |
 | `alpha_stats` | Free | Gateway stats (uptime, memory, rate limits). |
 
 ### MCP Quick Start
@@ -320,6 +332,70 @@ Sources: FRED (Federal Reserve Economic Data), Polymarket, Kalshi, X/Twitter. AI
 
 Sources: CoinTelegraph, Decrypt, CoinDesk, Blockworks (via RSS), X/Twitter. AI synthesis via Grok.
 
+### GET /alpha/onchain -- On-Chain Activity
+
+| Param | Required | Description |
+|---|---|---|
+| `symbol` | Yes* | Token symbol (e.g., `SOL`, `ETH`, `BTC`) |
+| `address` | Yes* | Contract address |
+| `token` | Yes* | Alias for `symbol`/`address` |
+| `chain` | No | Chain filter: `base`, `ethereum`, `solana`. Default: auto-detect. |
+| `timeframe` | No | Lookback window: `1h`, `4h`, `24h`, `7d`. Default: `24h`. |
+
+Sources: Alchemy (EVM), Helius (Solana), DexScreener, CoinGecko, X/Twitter. AI synthesis via Grok.
+
+### GET /alpha/compare -- Token Comparison
+
+| Param | Required | Description |
+|---|---|---|
+| `tokens` | Yes* | Comma-separated symbols (2-5), e.g. `SOL,ETH` |
+| `addresses` | Yes* | Comma-separated contract addresses (alternative) |
+| `metrics` | No | Focus: `price`, `volume`, `sentiment`, `holders`, `liquidity`. Default: all. |
+
+Sources: CoinGecko, DexScreener (per token), X/Twitter. AI synthesis via Grok.
+
+### GET /alpha/narrative -- Market Narratives
+
+| Param | Required | Description |
+|---|---|---|
+| `narrative` | No | Slug: `ai`, `rwa`, `meme`, `l2`, `depin`, `defi`, `gaming` |
+| `query` | No | Free-text narrative query (e.g., `AI agent tokens`) |
+| `limit` | No | Number of narratives. Default: 5. |
+
+Works with no params (returns top active narratives). Sources: CoinGecko categories, Exa, X/Twitter. AI synthesis via Grok.
+
+### GET /alpha/calendar -- Event Calendar
+
+| Param | Required | Description |
+|---|---|---|
+| `symbol` | No | Filter by token (e.g., `ARB`, `ETH`) |
+| `query` | No | Free-text event query (e.g., `token unlock`) |
+| `days` | No | Look-ahead: `7`, `14`, `30`. Default: `14`. |
+| `category` | No | Type: `unlock`, `upgrade`, `governance`, `launch`, `conference`, `earnings` |
+
+Works with no params (returns all upcoming events). Event data is AI-synthesized. Sources: Exa, CoinGecko, X/Twitter. AI synthesis via Grok.
+
+### GET /alpha/risk -- Risk Assessment
+
+| Param | Required | Description |
+|---|---|---|
+| `symbol` | Yes* | Token symbol (e.g., `WIF`) |
+| `address` | Yes* | Contract address (preferred for accuracy) |
+| `token` | Yes* | Alias for `symbol`/`address` |
+| `chain` | No | Chain for lookup. Default: auto-detect. |
+
+Sources: CoinGecko, DexScreener, Exa (audit reports), X/Twitter (scam reports). AI synthesis via Grok.
+
+### GET /alpha/portfolio -- Portfolio Analysis
+
+| Param | Required | Description |
+|---|---|---|
+| `wallet` | Yes* | Wallet address (EVM `0x...` or Solana base58) |
+| `address` | Yes* | Alias for `wallet` |
+| `chain` | No | Chain: `base`, `ethereum`, `solana`. Default: auto-detect from address format. |
+
+Sources: Alchemy (EVM balances), Helius (Solana balances), CoinGecko/DexScreener (prices). AI synthesis via Grok.
+
 ---
 
 ## Trust, Billing, and Query Quality
@@ -351,6 +427,12 @@ Notes:
 | `/alpha/prediction` | No | Returns `200` with `warnings:["twitter_unavailable"]` |
 | `/alpha/macro` | No | Returns `200` with `warnings:["twitter_unavailable"]` |
 | `/alpha/news` | No | Returns `200` with `warnings:["twitter_unavailable"]` |
+| `/alpha/onchain` | No | Returns `200` with `warnings:["twitter_unavailable"]` |
+| `/alpha/compare` | No | Returns `200` with `warnings:["twitter_unavailable"]` |
+| `/alpha/narrative` | No | Returns `200` with `warnings:["twitter_unavailable"]` |
+| `/alpha/calendar` | No | Returns `200` with `warnings:["twitter_unavailable"]` |
+| `/alpha/risk` | No | Returns `200` with `warnings:["twitter_unavailable"]` |
+| `/alpha/portfolio` | No | Returns `200` with `warnings:["twitter_unavailable"]` |
 
 Common reasons X/Twitter may be unavailable:
 - No relevant tweets found for the specific query/time window.
@@ -372,6 +454,12 @@ Common reasons X/Twitter may be unavailable:
 | `/alpha/prediction` | `/alpha/prediction?query=fed rate cut by June 2026&category=economics` | `/alpha/prediction?query=test` |
 | `/alpha/macro` | `/alpha/macro?theme=inflation` | `/alpha/macro?theme=whatever` |
 | `/alpha/news` | `/alpha/news?query=bitcoin ETF flows&category=coindesk` | `/alpha/news?query=hi` |
+| `/alpha/onchain` | `/alpha/onchain?symbol=SOL&timeframe=24h` | `/alpha/onchain?symbol=x` |
+| `/alpha/compare` | `/alpha/compare?tokens=SOL,ETH` | `/alpha/compare?tokens=SOL` (need 2+) |
+| `/alpha/narrative` | `/alpha/narrative` or `/alpha/narrative?narrative=ai` | `/alpha/narrative?query=x` |
+| `/alpha/calendar` | `/alpha/calendar?category=unlock&days=7` | `/alpha/calendar?query=hi` |
+| `/alpha/risk` | `/alpha/risk?symbol=WIF` | `/alpha/risk?symbol=x` |
+| `/alpha/portfolio` | `/alpha/portfolio?wallet=0xd8dA...` | `/alpha/portfolio?wallet=abc` |
 
 
 Use specific, intent-rich prompts. Prefer:
