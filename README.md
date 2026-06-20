@@ -54,7 +54,7 @@ Available via **REST** (`GET /alpha/*`) and **MCP** (`POST /mcp`). Same tools, s
 |---|---|---|
 | `/alpha/token` | $0.03 USDC | Price, volume, market cap + X/Twitter engagement data + AI trading signals |
 | `/alpha/trending` | $0.03 USDC | Top trending tokens + X/Twitter analysis + AI narrative detection |
-| `/alpha/sentiment` | $0.05 USDC | up to 99 tweets analyzed with full engagement metrics (likes, views, retweets, followers) + bull/bear scoring |
+| `/alpha/sentiment` | $0.062 USDC | X (up to 99 tweets) + Reddit cross-source sentiment with full engagement metrics (likes, views, retweets, followers, upvotes) + bull/bear scoring & X-vs-Reddit corroboration |
 | `/alpha/search` | $0.03 USDC | Neural search via Exa + X/Twitter + AI summary with sources |
 | `/alpha/deep` | $0.10 USDC | Full research: Exa + Firecrawl + Claude + up to 99 tweets with engagement data |
 | `/alpha/prediction` | $0.03 USDC | Prediction market intelligence with X/Twitter sentiment (Polymarket + Kalshi + X + Grok) |
@@ -64,7 +64,7 @@ Available via **REST** (`GET /alpha/*`) and **MCP** (`POST /mcp`). Same tools, s
 | `/alpha/compare` | $0.05 USDC | Side-by-side token comparison (2-5 tokens) across price, volume, sentiment, fundamentals |
 | `/alpha/narrative` | $0.05 USDC | Market narrative detection — AI tokens, RWA, L2, memecoins, DePIN capital flows |
 | `/alpha/calendar` | $0.03 USDC | Upcoming crypto events — token unlocks, upgrades, governance, launches, conferences |
-| `/alpha/risk` | $0.05 USDC | Token safety — audit status, rug pull signals, liquidity depth, holder concentration |
+| `/alpha/risk` | $0.062 USDC | Token safety — audit status, rug pull signals, liquidity depth, holder concentration + X & Reddit scam-report corroboration |
 | `/alpha/portfolio` | $0.05 USDC | Wallet portfolio analysis — holdings, diversification score, risk exposure, AI rebalancing |
 
 X/Twitter engagement data (likes, views, retweets, followers, verified status) has no separate surcharge when available.
@@ -83,7 +83,7 @@ The MCP server exposes all AI Intelligence tools via [Model Context Protocol](ht
 |---|---|---|
 | `alpha_token` | $0.03 | Token analysis with price, volume, X/Twitter engagement data, and AI signals. |
 | `alpha_trending` | $0.03 | Trending tokens and narratives with X/Twitter analysis. |
-| `alpha_sentiment` | $0.05 | up to 99 tweets with full engagement metrics + bull/bear scoring. |
+| `alpha_sentiment` | $0.062 | X (up to 99 tweets) + Reddit with full engagement metrics + bull/bear scoring & cross-source check. |
 | `alpha_search` | $0.03 | Neural search via Exa + X/Twitter + AI summary. |
 | `alpha_deep` | $0.10 | Deep research: Exa + Firecrawl + Claude + up to 99 tweets. Up to 60s. |
 | `alpha_prediction` | $0.03 | Prediction market odds + X/Twitter sentiment (Polymarket + Kalshi + X + Grok). |
@@ -93,7 +93,7 @@ The MCP server exposes all AI Intelligence tools via [Model Context Protocol](ht
 | `alpha_compare` | $0.05 | Side-by-side token comparison across price, volume, sentiment. |
 | `alpha_narrative` | $0.05 | Market narrative detection — AI, RWA, L2, meme, DePIN flows. |
 | `alpha_calendar` | $0.03 | Upcoming crypto events — unlocks, upgrades, governance, launches. |
-| `alpha_risk` | $0.05 | Token safety — audit status, rug pull signals, holder concentration. |
+| `alpha_risk` | $0.062 | Token safety — audit, rug/honeypot signals, holder concentration + X & Reddit scam reports. |
 | `alpha_portfolio` | $0.05 | Wallet portfolio — holdings, diversification, risk, AI rebalancing. |
 | `alpha_stats` | Free | Gateway stats (uptime, memory, rate limits). |
 
@@ -257,7 +257,7 @@ X/Twitter engagement data included automatically.
 
 X/Twitter analysis included automatically.
 
-### GET /alpha/sentiment -- X/Twitter Analysis
+### GET /alpha/sentiment -- X + Reddit Analysis
 
 | Param | Required | Description |
 |---|---|---|
@@ -384,7 +384,7 @@ Works with no params (returns all upcoming events). Event data is AI-synthesized
 | `token` | Yes* | Alias for `symbol`/`address` |
 | `chain` | No | Chain for lookup. Default: auto-detect. |
 
-Sources: CoinGecko, DexScreener, Exa (audit reports), X/Twitter (scam reports). AI synthesis via Grok.
+Sources: CoinGecko, DexScreener, Exa (audit reports), X/Twitter + Reddit (scam reports). AI synthesis via Grok.
 
 ### GET /alpha/portfolio -- Portfolio Analysis
 
